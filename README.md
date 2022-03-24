@@ -4,6 +4,24 @@ This project enables you to use ES2016 classes along with the p5.play sprites.
 
 This project is intended to teach students the use of classes and object-oriented programming.
 
+## Project startup
+
+ - go to https://github.com/T-INFORMATICA/p5-play-OO
+ - download ZIP
+ - extract files to project folder
+
+## Preparing your project
+
+ - create a folder called `scripts`
+ - create a file in the `scripts` folder called `[YourGameName].js`
+ - Add the file in `index.html` using a `<script>` element
+ - create a `class` in `[YourGameName].js` called `[YourGameName]` that extends from `Game`
+ - Give it an empty constructor, except for the call to the super constructor
+ - Open sketch.js
+ - create a variable `game` with value `null`
+ - initialize the variable `game` in the function `setup()` with `new [YourGameName]()`
+ - call `game.Update()` *(mark the capital 'U'!)* from the function `draw()`
+
 ## Creating a class
 
  1. Create a file called `[YourClassName].js`
