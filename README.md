@@ -21,6 +21,7 @@ This project is intended to teach students the use of classes and object-oriente
  - create a variable `game` with value `null`
  - initialize the variable `game` in the function `setup()` with `new [YourGameName]()`
  - call `game.Update()` *(mark the capital 'U'!)* from the function `draw()`
+ - test to see if you get a black canvas when running `index.html` in your browser
 
 ## Creating a class
 
