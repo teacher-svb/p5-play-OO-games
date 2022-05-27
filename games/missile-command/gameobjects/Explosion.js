@@ -4,37 +4,37 @@ class Explosion extends GameObject {
 
     constructor(x, y, maxRadius, isFriendly) { 
         super(x, y, 1, 1);
-        this.life = maxRadius;
+        this.Life = maxRadius;
         this.#isFriendly = isFriendly;
 
-        this.setCollider("circle");
+        this.SetDefaultCollider();
     }
 
     Update() { 
-        circle(0, 0, this.width);
+        circle(0, 0, this.Width);
 
-        this.width++;
-        this.height++;
-        
-        this.setCollider("circle");
+        this.Width++;
+        this.Height++;
     }
 
-    Overlap(other) { 
-        if (this.#objectsHit.includes(other) === true) { 
-            return;
-        }
-        
-        if (other instanceof Missile &&
-            this.#isFriendly === true && 
-            other.IsFriendly === false) { 
-            other.remove();
-        }
-
-        if (other instanceof City &&
-            this.#isFriendly === false) { 
-            other.Hit();
-        }
-
-        this.#objectsHit.push(other);
+    Overlap(spritesHit) { 
+        spritesHit.forEach(spriteHit => {
+            if (this.#objectsHit.includes(spriteHit) === true) { 
+                return;
+            }
+            
+            if (spriteHit instanceof Missile &&
+                this.#isFriendly === true && 
+                spriteHit.IsFriendly === false) { 
+                spriteHit.Remove();
+            }
+    
+            if (spriteHit instanceof City &&
+                this.#isFriendly === false) { 
+                spriteHit.Hit();
+            }
+    
+            this.#objectsHit.push(spriteHit);
+        });
     }
 }

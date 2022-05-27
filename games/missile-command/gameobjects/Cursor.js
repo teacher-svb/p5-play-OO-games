@@ -10,16 +10,16 @@ class Cursor extends GameObject {
 
     #MoveCursor() { 
         if (keyIsDown(LEFT_ARROW) === true) { 
-            this.position.x -= 5;
+            this.Position.x -= 5;
         }
         if (keyIsDown(RIGHT_ARROW) === true) { 
-            this.position.x += 5;
+            this.Position.x += 5;
         }
         if (keyIsDown(UP_ARROW) === true) { 
-            this.position.y -= 5;
+            this.Position.y -= 5;
         }
         if (keyIsDown(DOWN_ARROW) === true) { 
-            this.position.y += 5;
+            this.Position.y += 5;
         }
     }
 
@@ -28,6 +28,6 @@ class Cursor extends GameObject {
         stroke(255, 0, 0);
         strokeWeight(2);
 
-        circle(0, 0, this.width);
+        circle(0, 0, this.Width);
     }
 }

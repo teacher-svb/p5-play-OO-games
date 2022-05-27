@@ -8,21 +8,21 @@ class City extends GameObject {
 
         this.#citySprite = loadImage('assets/city.png');
 
-        this.setCollider("rectangle", 0, 0, width, height);
+        this.SetDefaultCollider();
     }
 
     Update() { 
         fill(0, 0, 0, 50);
-        ellipse(0, this.height / 2, this.width * 8 / 7, this.height / 4);
+        ellipse(0, this.Height / 2, this.Width * 8 / 7, this.Height / 4);
 
-        image(this.#citySprite, 0, 0, this.width, this.height);
+        image(this.#citySprite, 0, 0, this.Width, this.Height);
     }
 
     Hit() { 
         this.#hitpoints--;
 
         if (this.#hitpoints === 0) { 
-            this.remove();
+            this.Remove();
         }
     }
 }

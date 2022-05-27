@@ -1,4 +1,5 @@
-class MissileCommand extends Game { 
+
+class MissileCommand extends Game {
     #cursor = null;
     #cities = [];
     #enemyMissileSpawner = null;
@@ -30,8 +31,5 @@ class MissileCommand extends Game {
         image(this.#backgroundImage2, 200, 220, 200, 200);
         image(this.#backgroundImage2, 400, 220, 200, 200);
         image(this.#backgroundImage , 600, 220, 200, 200);
-
-        super.Update();
-
     }
 }

@@ -12,6 +12,10 @@ class Snake extends GameObject {
         this.#head.AddBodypart();
     }
 
+    TryEatCandy(candy) {
+        this.#head.Overlap(candy);
+    }
+
     Update() { 
         this.#timer += deltaTime;
 

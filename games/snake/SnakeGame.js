@@ -1,4 +1,5 @@
-class SnakeGame extends Game { 
+
+class SnakeGame extends Game {
     #snake = null;
     #timer = 0;
     #currentCandy = null;
@@ -12,10 +13,12 @@ class SnakeGame extends Game {
     }
 
     Update() { 
-        super.Update();
-
-        if (this.#currentCandy.removed) { 
+        if (!this.#currentCandy || this.#currentCandy.Removed) { 
             this.GenerateCandy();
+        }
+
+        if (this.#currentCandy && this.#snake) {
+            this.#snake.TryEatCandy(this.#currentCandy);
         }
     }
 

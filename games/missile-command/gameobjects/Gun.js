@@ -2,7 +2,7 @@ class Gun extends MissileSpawner {
     #cursor = null;
 
     constructor(x, y, width, height, cursor) { 
-        super(x, y, width, height, true);
+        super(x, y, width, height);
 
         this.#cursor = cursor;
     }
@@ -10,15 +10,15 @@ class Gun extends MissileSpawner {
     Update() { 
         super.Update();
 
-        rect(0, 0, this.width, this.height);
+        rect(0, 0, this.Width, this.Height);
         if (keyIsDown(32) === true &&
             this.Timer > 50) {
             this.ResetTimer();
 
-            this.Shoot(this.position.x,
-                       this.position.y,
-                       this.#cursor.position.x,
-                       this.#cursor.position.y);
+            this.Shoot(this.Position.x,
+                       this.Position.y,
+                       this.#cursor.Position.x,
+                       this.#cursor.Position.y);
         }
     }
 }

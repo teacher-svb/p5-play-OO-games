@@ -13,9 +13,9 @@ class Missile extends GameObject {
         let angleInDegrees = degrees(angleInRadians);
         this.#speed = speed;
         this.#isFriendly = isFriendly;
-        this.setSpeed(this.#speed, angleInDegrees);
+        this.SetSpeed(this.#speed, angleInDegrees);
 
-        this.setCollider("rectangle", 0, 0, size, size);
+        this.SetDefaultCollider();
     }
 
     get IsFriendly() { 
@@ -25,20 +25,20 @@ class Missile extends GameObject {
     Overlap(other) { 
         if (other instanceof City &&
             this.#isFriendly === false) { 
-            new Explosion(this.position.x, this.position.y, 100, this.#isFriendly);
-            this.remove();
+            new Explosion(this.Position.x, this.Position.y, 100, this.#isFriendly);
+            this.Remove();
         }
     }
 
     Update() { 
         fill(255, 0, 0);
-        rect(0, 0, this.width, this.height);
+        rect(0, 0, this.Width, this.Height);
 
-        let distance = this.position.dist(this.#goal);
+        let distance = this.Position.dist(this.#goal);
 
         if (distance < this.#speed * 2) { 
-            new Explosion(this.position.x, this.position.y, 100, this.#isFriendly);
-            this.remove();
+            new Explosion(this.Position.x, this.Position.y, 100, this.#isFriendly);
+            this.Remove();
         }
     }
 }

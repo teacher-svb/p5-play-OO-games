@@ -1,84 +1,83 @@
 class Player extends GameObject {
-    #feet = null;
     #jumpsLeft = 1;
     #jumped = false;
+    #animationFrames = undefined;
+    #spritesheet = undefined;
+
+    #animation = undefined;
 
     constructor(x, y, size) {
-        super(x, y, size, size, true);
+        super(x, y, 37, size);
+        this.SetDefaultCollider();
+        this.CollisionLayer = Settings.Layers.PLAYER;
 
-        loadJSON("assets/images/characters/character-alien-pink.json", allFrames => {
-            let frames = [];
-            let spritesheet = null;
-            let animation = null;
+        this.#animation = new Animation("assets/images/p3_spritesheet.png", "assets/images/p3_spritesheet.json")
 
-            frames = [
-                allFrames[9],
-                allFrames[10]
-            ];
-            spritesheet = loadSpriteSheet('assets/images/characters/character-alien-pink.png', frames);
-            animation = loadAnimation(spritesheet);
-            animation.frameDelay = 90;
-            this.addAnimation("walk", animation);
-            
-            frames = [
-                allFrames[5]
-            ];
-            spritesheet = loadSpriteSheet('assets/images/characters/character-alien-pink.png', frames);
-            animation = loadAnimation(spritesheet);
-            this.addAnimation("jump", animation);
-            
-            frames = [
-                allFrames[0]
-            ];
-            spritesheet = loadSpriteSheet('assets/images/characters/character-alien-pink.png', frames);
-            animation = loadAnimation(spritesheet);
-            this.addAnimation("stand", animation);
-
-            this.changeAnimation("stand");
-        });
-        console.log(this);
+        this.#animation.AddAnimationLoop("idle", 4);
+        this.#animation.AddAnimationLoop("walk", 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+        this.#animation.AddAnimationLoop("jump", 3);
+        this.#animation.CurrentAnimationLoop = "idle";
     }
 
     Update() {
+        push();
+        if (this.Velocity.x < 0) {
+            scale(-1, 1);
+        }
         if (this.#jumpsLeft < 1) {
-            this.changeAnimation("jump");
+            this.#animation.CurrentAnimationLoop = "jump";
         }
-        else if (this.velocity.x < 0.1 && this.velocity.x > -0.1) {
-            this.changeAnimation("stand");
+        else if (this.Velocity.x < 0.1 && this.Velocity.x > -0.1) {
+            this.#animation.CurrentAnimationLoop = "idle";
         }
-        else if (this.velocity.x != 0) {
-            this.changeAnimation("walk");
+        else if (this.Velocity.x != 0) {
+            this.#animation.CurrentAnimationLoop = "walk";
         }
-        if (this.animation)
-            this.animation.draw(0, 0);
+        this.#animation.Draw(this.Width, this.Height);
+        pop();
 
-        this.setSpeed(this.velocity.y + GRAVITY, 90);
+
+        this.SetSpeed(this.Velocity.y + .4, 90);
         this.#jumped = false;
 
-        
+
         if (keyIsDown(LEFT_ARROW) === true) {
-            this.addSpeed(5, 180);
+            this.AddSpeed(5, 180);
         }
         if (keyIsDown(RIGHT_ARROW) === true) {
-            this.addSpeed(5, 0);
+            this.AddSpeed(5, 0);
         }
-            
+
         if (keyWentDown(UP_ARROW) === true && this.#jumpsLeft > 0) {
-            this.setSpeed(12, -90);
+            this.SetSpeed(12, -90);
             this.#jumpsLeft--;
             this.#jumped = true;
         }
     }
 
-    Collide(other) {
-        if (other instanceof TileFloor) {
-            if (this.#jumped === false) {
-                this.#jumpsLeft = 1;
+    OnOverlap(spritesHit) { 
+        spritesHit.forEach(other => {
+            if (other instanceof Coin) { 
+                console.log("found coin!!!");
+                other.Collect();
             }
+         });
+    }
 
-            if (this.velocity.y > 0) {
-                this.velocity.y = 0;
+    OnCollide(spritesHit) {
+        spritesHit.forEach(other => {
+            if (this.Hit.bottom === true) {
+                if (this.#jumped === false) {
+                    this.#jumpsLeft = 1;
+                }
+
+                if (this.Velocity.y > 0) {
+                    this.Velocity.y = 0;
+                }
             }
-        }
+            if (this.Hit.top === true && this.Hit.left === false && this.Hit.right === false) {
+                this.Velocity.y = 0;
+            }
+        });
     }
 }
