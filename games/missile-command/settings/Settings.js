@@ -2,14 +2,14 @@ class Settings {
     static GameClass = MissileCommand;
     
     static Layers = {
-        PLAYER: 0,
-        GROUND: 1,
-        ENEMIES: 2, 
-        COINS: 3
+        MISSILES: 0,
+        CITIES: 1,
+        EXPLOSIONS: 2
     };
 
     static LayerInteractions = {
-        [Settings.Layers.PLAYER]: [Settings.Layers.GROUND, Settings.Layers.ENEMIES]
+        [Settings.Layers.EXPLOSIONS]: [Settings.Layers.MISSILES, Settings.Layers.CITIES],
+        [Settings.Layers.MISSILES]: [Settings.Layers.CITIES]
     };
 
     static BackgroundColor = "#FFF";
@@ -17,7 +17,7 @@ class Settings {
     static GameWidth = 800;
     static GameHeight = 600;
 
-    static Debug = false;
+    static Debug = true;
     static ShowStats = true;
     static ShowGrid = false;
     static GridSize = 50;

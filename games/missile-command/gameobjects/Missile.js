@@ -16,18 +16,22 @@ class Missile extends GameObject {
         this.SetSpeed(this.#speed, angleInDegrees);
 
         this.SetDefaultCollider();
+        this.CollisionLayer = Settings.Layers.MISSILES;
+
     }
 
     get IsFriendly() { 
         return this.#isFriendly;
     }
 
-    Overlap(other) { 
-        if (other instanceof City &&
-            this.#isFriendly === false) { 
-            new Explosion(this.Position.x, this.Position.y, 100, this.#isFriendly);
-            this.Remove();
-        }
+    OnOverlap(spritesHit) { 
+        spritesHit.forEach(other => {
+            if (other instanceof City &&
+                this.#isFriendly === false) { 
+                new Explosion(this.Position.x, this.Position.y, 100, this.#isFriendly);
+                this.Remove();
+            }
+        });
     }
 
     Update() { 

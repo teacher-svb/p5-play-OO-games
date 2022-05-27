@@ -8,6 +8,7 @@ class Explosion extends GameObject {
         this.#isFriendly = isFriendly;
 
         this.SetDefaultCollider();
+        this.CollisionLayer = Settings.Layers.EXPLOSIONS;
     }
 
     Update() { 
@@ -15,9 +16,13 @@ class Explosion extends GameObject {
 
         this.Width++;
         this.Height++;
+
+        if (this.Width > 100) {
+            this.Remove();
+        }
     }
 
-    Overlap(spritesHit) { 
+    OnOverlap(spritesHit) { 
         spritesHit.forEach(spriteHit => {
             if (this.#objectsHit.includes(spriteHit) === true) { 
                 return;

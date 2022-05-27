@@ -9,6 +9,7 @@ class City extends GameObject {
         this.#citySprite = loadImage('assets/city.png');
 
         this.SetDefaultCollider();
+        this.CollisionLayer = Settings.Layers.CITIES;
     }
 
     Update() { 
