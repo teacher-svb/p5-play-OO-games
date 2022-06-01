@@ -1,7 +1,6 @@
 
 class SnakeGame extends Game {
     #snake = null;
-    #timer = 0;
     #currentCandy = null;
 
     constructor() { 
