@@ -24,7 +24,7 @@ class Missile extends GameObject {
         return this.#isFriendly;
     }
 
-    OnOverlap(spritesHit) { 
+    OnCollide(spritesHit) { 
         spritesHit.forEach(other => {
             if (other instanceof City &&
                 this.#isFriendly === false) { 

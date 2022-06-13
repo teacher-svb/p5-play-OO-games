@@ -2,7 +2,7 @@ class Gun extends MissileSpawner {
     #cursor = null;
 
     constructor(x, y, width, height, cursor) { 
-        super(x, y, width, height);
+        super(x, y, width, height, true);
 
         this.#cursor = cursor;
     }

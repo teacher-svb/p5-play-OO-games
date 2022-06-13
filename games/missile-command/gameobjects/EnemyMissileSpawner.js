@@ -1,6 +1,6 @@
 class EnemyMissileSpawner extends MissileSpawner { 
     constructor() { 
-        super(0, 0, 0, 0);
+        super(0, 0, 0, 0, false);
     }
 
     Update() { 
