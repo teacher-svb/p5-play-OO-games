@@ -1,8 +1,17 @@
 class Player extends GameObject { 
+    #wasHit = false;
+
     constructor(x, y, w, h) {
         super(x, y, w, h);
         this.SetDefaultCollider();
         this.CollisionLayer = Settings.Layers.PLAYER;
+    }
+
+    Hit() { 
+        this.#wasHit = true; 
+        setTimeout(() => {
+            this.#wasHit = false;
+        }, 500);
     }
 
     Update() { 
@@ -26,7 +35,12 @@ class Player extends GameObject {
     }
 
     #DrawCursor() { 
-        fill("blue");
+        if (this.#wasHit) {
+            fill("red");
+        }
+        else {
+            fill("blue");
+        }
         rect(0, 0, this.Width);
     }
 
