@@ -2,6 +2,8 @@ class Player extends GameObject {
     #wasHit = false;
     #animation = undefined;
 
+    #cannon = undefined;
+
     constructor(x, y, w, h) {
         super(x, y, w, h);
         this.SetDefaultCollider();
@@ -13,6 +15,7 @@ class Player extends GameObject {
         this.#animation.AddAnimationLoop("hit1", 1);
         this.#animation.AddAnimationLoop("hit2", 2);
         this.#animation.CurrentAnimationLoop = "hit0";
+
     }
 
     Hit() { 
