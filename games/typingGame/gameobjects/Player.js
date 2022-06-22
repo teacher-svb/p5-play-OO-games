@@ -5,6 +5,7 @@ class Player extends GameObject {
         super(x, y, w, h);
         this.SetDefaultCollider();
         this.CollisionLayer = Settings.Layers.PLAYER;
+        this.Depth = 10;
     }
 
     Hit() { 

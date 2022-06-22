@@ -1,6 +1,6 @@
 class TypingGame extends Game {
     #player = undefined;
-    #rockSpawner = undefined;
+    #map = undefined;
 
     #keyPressed = "";
     #lastKeyPressed = "S";
@@ -14,32 +14,58 @@ class TypingGame extends Game {
         frameRate(3000);
         this.#player = new Player(width/2, height - 100, 50, 50);
 
+        loadStrings("assets/text.txt", (result) => {
+            let text = result.join(" ");
+            text = text.replace(/[^a-zA-Z ]/g, "");
+            text = text.toLowerCase();
+            let words = text.split(" ");
+            words = [...new Set(words)];
+            words = words.filter(w => w.length > 2);
+            words.sort((a, b) => {
+                if (a.length > b.length) {
+                    return 1;
+                }
+                else if (a.length < b.length) {
+                    return -1;
+                }
+                if (a > b) {
+                    return 1;
+                }
+                if (b > a) {
+                    return -1;
+                }
+                return 0;
+            });
+            console.log(words);
+        });
+
 
         this.#wordList = [...new Set(this.#wordList)].map(s => s.toLowerCase());
-        this.#rockSpawner = new RockSpawner(this.#wordList);
+
+        this.#map = new Level();
     }
 
     Update() { 
-
         text(this.#lastKeyPressed, 20, 20);
 
         if (GameManager.keysPressed.length > 0) {
             this.#keyPressed = String.fromCharCode(GameManager.keysPressed[0]).toLowerCase();
             this.#lastKeyPressed = this.#keyPressed;
+
+            if (this.#target == undefined || this.#target.Removed) {
+                this.#target = this.#map.TargetEnemy(this.#lastKeyPressed);
+                console.log(this.#target);
+            }
         }
         else { 
             this.#keyPressed = "";
         }
 
         
-        if (this.#target == undefined || this.#target.Removed) {
-            this.#target = this.#rockSpawner.TargetRock(this.#lastKeyPressed);
-        }
 
         if (GameManager.keysPressed.length > 0 && this.#target != undefined) {
             let hit = this.#target.Hit(this.#lastKeyPressed);
             if (hit === false) { 
-                console.log(this.#lastKeyPressed)
                 this.#player.Hit();
             }
         }

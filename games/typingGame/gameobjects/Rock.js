@@ -5,7 +5,8 @@ class Rock extends GameObject {
         this.#word = word;
         this.SetDefaultCollider();
         this.CollisionLayer = Settings.Layers.ROCKS;
-        this.SetSpeed(.5, 90);
+        this.SetSpeed(1, 90);
+        this.Depth = 5;
     }
 
     get Word() { 
