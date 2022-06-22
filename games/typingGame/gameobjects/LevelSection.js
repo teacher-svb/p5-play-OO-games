@@ -3,17 +3,17 @@ class LevelSection extends GameObject {
     #obstacles = [];
     #enemies = [];
     #values = [];
-    constructor(screen, templateData) {
+    constructor(screen, templateData, wordList) {
         super(width / 2, screen * height + height / 2, width, height);
 
-        this.#InitObstacles(templateData);
+        this.#InitObstacles(templateData, wordList);
     }
 
     get Enemies() {
         return this.#enemies;
     }
 
-    #InitObstacles(templateData) {
+    #InitObstacles(templateData, wordList) {
         for (let x = 0; x < width / Settings.GridSize; x += 1) {
             for (let y = 0; y < height / Settings.GridSize; y += 1) {
                 let i = (y * width / Settings.GridSize) + x;
@@ -26,7 +26,7 @@ class LevelSection extends GameObject {
                         this.#obstacles.push(new Water(xPos, yPos));
                         break;
                     case color(255, 0, 0, 0).toString():
-                        this.#enemies.push(new Rock("test", xPos, yPos, 80, 80));
+                        this.#enemies.push(new Rock(wordList.shift(), xPos, yPos, 80, 80));
                         this.#obstacles.push(new Water(xPos, yPos));
                         break;
                     case color(0, 255, 0, 0).toString():
@@ -38,9 +38,11 @@ class LevelSection extends GameObject {
     }
 
     Update() {
-        this.Position.y += .5;
+        let speed = .5;
+        this.Position.y += speed;
 
-        this.#obstacles.forEach(o => o.Position.y += .5);
+
+        this.#obstacles.forEach(o => o.Position.y += speed);
 
         if (this.Position.y > height * 1.5) {
             this.#obstacles.forEach(o => o.Remove());

@@ -9,7 +9,7 @@ class Settings {
     };
 
     static LayerInteractions = {
-        // [Settings.Layers.PLAYER]: [Settings.Layers.ENEMIES, Settings.Layers.ROCKS]
+        [Settings.Layers.PLAYER]: [Settings.Layers.LAND],
         [Settings.Layers.ROCKS]: [Settings.Layers.ROCKS, Settings.Layers.LAND]
     };
 

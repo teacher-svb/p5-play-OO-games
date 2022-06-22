@@ -1,0 +1,5 @@
+[
+    {"name": "s1_hit0", "frame": { "x": 0, "y": 0, "width": 66, "height": 113}},
+    {"name": "s1_hit1", "frame": { "x": 66, "y": 0, "width": 66, "height": 113}},
+    {"name": "s1_hit2", "frame": { "x": 132, "y": 0, "width": 66, "height": 113}}
+]

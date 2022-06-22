@@ -3,8 +3,11 @@ class Level extends GameObject {
     #templates = [];
     #enemies = [];
 
-    constructor() {
+    #wordList = [];
+
+    constructor(wordList) {
         super(0, 0, 0, 0);
+        this.#wordList = wordList;
 
         loadImage('assets/tile1.png', img => {
             img.loadPixels();
@@ -14,9 +17,9 @@ class Level extends GameObject {
             }
             this.#templates.push(tmpl);
 
-            this.#tiles.push(new LevelSection(0, tmpl));
-            this.#tiles.push(new LevelSection(-1, tmpl));
-            this.#tiles.push(new LevelSection(-2, tmpl));
+            this.#tiles.push(new LevelSection(0, tmpl, this.#wordList));
+            this.#tiles.push(new LevelSection(-1, tmpl, this.#wordList));
+            this.#tiles.push(new LevelSection(-2, tmpl, this.#wordList));
 
             this.#UpdateEnemiesList();
         });
@@ -48,7 +51,7 @@ class Level extends GameObject {
         this.#tiles.forEach((t, i) => {
             if (!t || t.Removed) {
                 this.#tiles.splice(i, 1);
-                this.#tiles.push(new LevelSection(-2, this.#templates[0]));
+                this.#tiles.push(new LevelSection(-2, this.#templates[0], this.#wordList));
 
                 this.#UpdateEnemiesList();
             }

@@ -1,11 +1,18 @@
 class Player extends GameObject { 
     #wasHit = false;
+    #animation = undefined;
 
     constructor(x, y, w, h) {
         super(x, y, w, h);
         this.SetDefaultCollider();
         this.CollisionLayer = Settings.Layers.PLAYER;
         this.Depth = 10;
+
+        this.#animation = new Animation("assets/ship-1.png", "assets/ship-1.json");
+        this.#animation.AddAnimationLoop("hit0", 0);
+        this.#animation.AddAnimationLoop("hit1", 1);
+        this.#animation.AddAnimationLoop("hit2", 2);
+        this.#animation.CurrentAnimationLoop = "hit0";
     }
 
     Hit() { 
@@ -17,22 +24,11 @@ class Player extends GameObject {
 
     Update() { 
         this.#DrawCursor();
-        this.#MoveCursor();
     }
 
-    #MoveCursor() { 
-        if (keyIsDown(LEFT_ARROW) === true) { 
-            this.Position.x -= 5;
-        }
-        if (keyIsDown(RIGHT_ARROW) === true) { 
-            this.Position.x += 5;
-        }
-        if (keyIsDown(UP_ARROW) === true) { 
-            this.Position.y -= 5;
-        }
-        if (keyIsDown(DOWN_ARROW) === true) { 
-            this.Position.y += 5;
-        }
+    Shoot(char, target) {
+        target.TargetFirstLetter(char);
+        new Bullet(char, this.Position.x, this.Position.y, target);
     }
 
     #DrawCursor() { 
@@ -42,14 +38,8 @@ class Player extends GameObject {
         else {
             fill("blue");
         }
-        rect(0, 0, this.Width);
-    }
-
-    OnOverlap(spritesHit) { 
-        spritesHit.forEach(spriteHit => {
-            if (spriteHit instanceof Rock) { 
-                console.log("rock hit!");
-            }
-        });
+        // rect(0, 0, this.Width);
+        rotate(PI);
+        this.#animation.Draw(this.Width, this.Height);
     }
 }

@@ -5,14 +5,14 @@ class TypingGame extends Game {
     #keyPressed = "";
     #lastKeyPressed = "S";
 
-    #wordList = ["Lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipisicing", "elit", "Quaerat", "quae", "hic", "rerum", "ipsam", "perferendis", "quod", "nam", "esse", "doloribus", "Delectus", "unde", "natus", "quae", "accusantium", "exercitationem", "veritatis", "molestias", "laboriosam", "iste", "ipsam", "amet"];
+    #wordList = [];
 
     #target = undefined;
 
-    constructor() { 
+    constructor() {
         super();
         frameRate(3000);
-        this.#player = new Player(width/2, height - 100, 50, 50);
+        this.#player = new Player(width / 2, height - 100, 50, 85);
 
         loadStrings("assets/text.txt", (result) => {
             let text = result.join(" ");
@@ -36,38 +36,28 @@ class TypingGame extends Game {
                 }
                 return 0;
             });
-            console.log(words);
+            this.#wordList = words;
+            this.#map = new Level(this.#wordList);
         });
-
-
-        this.#wordList = [...new Set(this.#wordList)].map(s => s.toLowerCase());
-
-        this.#map = new Level();
     }
 
-    Update() { 
+    Update() {
         text(this.#lastKeyPressed, 20, 20);
 
         if (GameManager.keysPressed.length > 0) {
             this.#keyPressed = String.fromCharCode(GameManager.keysPressed[0]).toLowerCase();
             this.#lastKeyPressed = this.#keyPressed;
 
-            if (this.#target == undefined || this.#target.Removed) {
+            if (!this.#target || this.#target.Removed || this.#target.Finished) {
                 this.#target = this.#map.TargetEnemy(this.#lastKeyPressed);
-                console.log(this.#target);
             }
         }
-        else { 
+        else {
             this.#keyPressed = "";
         }
 
-        
-
         if (GameManager.keysPressed.length > 0 && this.#target != undefined) {
-            let hit = this.#target.Hit(this.#lastKeyPressed);
-            if (hit === false) { 
-                this.#player.Hit();
-            }
+            this.#player.Shoot(this.#lastKeyPressed, this.#target);
         }
 
         if (this.#target && this.#target.Removed == false) {
