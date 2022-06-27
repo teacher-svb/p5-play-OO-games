@@ -1,0 +1,9 @@
+[
+    {
+        "name": "big ship",
+        "size": 3,
+        "orientation": 90,
+        "cannons": [],
+        "spawnrate": -1
+    }
+]

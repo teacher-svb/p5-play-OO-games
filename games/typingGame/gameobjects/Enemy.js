@@ -28,7 +28,7 @@ class Enemy extends GameObject {
         }
 
         if (this.#word.length + this.#lettersHit.length == 1) {
-            this.Remove();
+            // this.Remove();
         }
 
         this.#lettersHit = this.#lettersHit.substring(1);

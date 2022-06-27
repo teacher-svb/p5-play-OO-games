@@ -14,7 +14,7 @@ class TypingGame extends Game {
         frameRate(3000);
         this.#player = new Player(width / 2, height - 100, 50, 85);
 
-        loadStrings("assets/text.txt", (result) => {
+        loadStrings("assets/data/text.txt", (result) => {
             let text = result.join(" ");
             text = text.replace(/[^a-zA-Z ]/g, "");
             text = text.toLowerCase();

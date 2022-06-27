@@ -9,7 +9,7 @@ class Level extends GameObject {
         super(0, 0, 0, 0);
         this.#wordList = wordList;
 
-        loadImage('assets/tile1.png', img => {
+        loadImage('assets/data/tile1.png', img => {
             img.loadPixels();
             let tmpl = [];
             for (let i = 0; i < img.pixels.length; i += 4) {

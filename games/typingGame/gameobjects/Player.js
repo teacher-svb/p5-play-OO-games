@@ -10,7 +10,7 @@ class Player extends GameObject {
         this.CollisionLayer = Settings.Layers.PLAYER;
         this.Depth = 10;
 
-        this.#animation = new Animation("assets/ship-1.png", "assets/ship-1.json");
+        this.#animation = new Animation("assets/spritesheets/ship-1.png", "assets/spritesheets/ship-1.json");
         this.#animation.AddAnimationLoop("hit0", 0);
         this.#animation.AddAnimationLoop("hit1", 1);
         this.#animation.AddAnimationLoop("hit2", 2);

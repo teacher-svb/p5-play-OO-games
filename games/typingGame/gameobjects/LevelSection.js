@@ -47,7 +47,7 @@ class LevelSection extends GameObject {
                         this.#obstacles.push(new Water(xPos, yPos));
                         break;
                     case color(255, 0, 0, 0).toString():
-                        this.#enemies.push(new Rock(wordList.shift(), xPos, yPos, 80, 80));
+                        this.#enemies.push(new EnemyShip(wordList.shift(), xPos, yPos, 80, 80));
                         this.#obstacles.push(new Water(xPos, yPos));
                         break;
                     case color(0, 255, 0, 0).toString():

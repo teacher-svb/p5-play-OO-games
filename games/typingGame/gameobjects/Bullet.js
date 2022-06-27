@@ -65,7 +65,7 @@ class Bullet extends GameObject {
                 if (dist < 20) {
                     this.#missed = !spriteHit.RemoveFirstLetter(this.#char);
                     if (this.#missed) {
-                        this.Life = 20;
+                        this.Life = 40;
                     }
                     else {
                         this.Remove();
