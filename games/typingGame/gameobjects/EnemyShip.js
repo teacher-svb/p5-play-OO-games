@@ -6,7 +6,7 @@ class EnemyShip extends Enemy {
     constructor(word, x, y, w, h) {
         super(word, x, y, w, h);
         this.CollisionLayer = Settings.Layers.ROCKS;
-        this.SetSpeed(1, 90);
+        this.SetSpeed(2, 90);
 
         this.#numLetters = word.length;
 
@@ -25,7 +25,7 @@ class EnemyShip extends Enemy {
 
         if (this.HitPoints <= 0) {
             image(this.#wreckageImage, 0, 0, this.Height * .58, this.Height);
-            this.SetSpeed(.5, 90);
+            this.SetSpeed(1, 90);
         }
         else {
             this.#animation.Draw(this.Height * .58, this.Height);

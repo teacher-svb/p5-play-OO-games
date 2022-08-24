@@ -5,24 +5,33 @@ class Level extends GameObject {
 
     #wordList = [];
 
-    constructor(wordList) {
+    constructor(wordList, levelSections) {
         super(0, 0, 0, 0);
         this.#wordList = wordList;
 
-        loadImage('assets/data/tile1.png', img => {
+        levelSections.forEach(img => {
             img.loadPixels();
             let tmpl = [];
             for (let i = 0; i < img.pixels.length; i += 4) {
                 tmpl.push(color(img.pixels[i], img.pixels[i + 1], img.pixels[i + 2], 0));
             }
             this.#templates.push(tmpl);
+        })
 
-            this.#tiles.push(new LevelSection(0, tmpl, this.#wordList));
-            this.#tiles.push(new LevelSection(-1, tmpl, this.#wordList));
-            this.#tiles.push(new LevelSection(-2, tmpl, this.#wordList));
+        
+        let rndTmpl = this.#templates[Math.floor(Math.random() * this.#templates.length)];
+        this.#tiles.push(new LevelSection(0, rndTmpl, this.#wordList));
+        rndTmpl = this.#templates[Math.floor(Math.random() * this.#templates.length)];
+        this.#tiles.push(new LevelSection(-1, rndTmpl, this.#wordList));
+        rndTmpl = this.#templates[Math.floor(Math.random() * this.#templates.length)];
+        this.#tiles.push(new LevelSection(-2, rndTmpl, this.#wordList));
 
-            this.#UpdateEnemiesList();
-        });
+        this.#UpdateEnemiesList();
+    }
+
+    CreateRandomLevelSection() {
+        const randomTemplate = this.#templates[Math.floor(Math.random() * this.#templates.length)];
+        return new LevelSection(0, randomTemplate, this.#wordList);
     }
 
     get Enemies() {
@@ -51,7 +60,8 @@ class Level extends GameObject {
         this.#tiles.forEach((t, i) => {
             if (!t || t.Removed) {
                 this.#tiles.splice(i, 1);
-                this.#tiles.push(new LevelSection(-2, this.#templates[0], this.#wordList));
+                let rndTmpl = this.#templates[Math.floor(Math.random() * this.#templates.length)];
+                this.#tiles.push(new LevelSection(-2, rndTmpl, this.#wordList));
 
                 this.#UpdateEnemiesList();
             }

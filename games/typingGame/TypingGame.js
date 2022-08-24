@@ -6,14 +6,49 @@ class TypingGame extends Game {
     #lastKeyPressed = "S";
 
     #wordList = [];
+    #levelSectionImagePaths = [
+        "assets/data/tile1.png",
+        "assets/data/tile2.png"
+    ];
+
+    #levelSectionImages = [];
 
     #target = undefined;
 
     constructor() {
         super();
-        frameRate(3000);
+        frameRate(60);
         this.#player = new Player(width / 2, height - 100, 50, 85);
 
+        
+        this.LoadData();
+        // this.LoadImages(levelData);
+        // this.LoadWords();
+    }
+
+
+    LoadData() {
+        if (this.#levelSectionImagePaths.length > 0) {
+            let img = loadImage(this.#levelSectionImagePaths.pop(), this.LoadData.bind(this));
+            this.#levelSectionImages.push(img);
+        }
+        else {
+            this.LoadWords();
+        }
+    }
+    
+
+    LoadImages(paths) {
+        let images = [];
+        while (images.length != paths.length) {
+            paths.forEach(path => {
+                images.push(loadImage(path));
+            });
+        }
+        return images;
+    }
+
+    LoadWords() {
         loadStrings("assets/data/text.txt", (result) => {
             let text = result.join(" ");
             text = text.replace(/[^a-zA-Z ]/g, "");
@@ -36,9 +71,13 @@ class TypingGame extends Game {
                 }
                 return 0;
             });
-            this.#wordList = words;
-            this.#map = new Level(this.#wordList);
+            this.LoadWordsFinished(words);
         });
+    }
+
+    LoadWordsFinished(words) {
+        this.#wordList = words;
+        this.#map = new Level(this.#wordList, this.#levelSectionImages);
     }
 
     Update() {

@@ -51,7 +51,7 @@ class LevelSection extends GameObject {
                         this.#obstacles.push(new Water(xPos, yPos));
                         break;
                     case color(0, 255, 0, 0).toString():
-                        console.log(templateData[t].toString() === cClr.toString())
+                        // console.log(templateData[t].toString() === cClr.toString())
                         this.#obstacles.push(new Island(xPos, yPos, pattern));
                         break;
                 }
@@ -60,7 +60,7 @@ class LevelSection extends GameObject {
     }
 
     Update() {
-        let speed = 0.5;
+        let speed = 1;
         this.Position.y += speed;
 
 

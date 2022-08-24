@@ -38,7 +38,7 @@ class Island extends GameObject {
         if (!Island.#textureCenter3) Island.#textureCenter3 = loadImage("assets/images/island-12.png");
         if (!Island.#textureCenter4) Island.#textureCenter4 = loadImage("assets/images/island-13.png");
 
-        console.log(pattern);
+        // console.log(pattern);
         
         switch(true) {
             case /.000..../.test(this.#pattern): this.#texture = Island.#textureTopRight; break;
