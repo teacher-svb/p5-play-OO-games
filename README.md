@@ -4,6 +4,12 @@ This project enables you to use ES2016 classes along with the p5.play sprites.
 
 This project is intended to teach students the use of classes and object-oriented programming.
 
+examples:
+- https://teacher-svb.github.io/p5-play-OO-games/games/platformer/
+- https://teacher-svb.github.io/p5-play-OO-games/games/missile-command/
+- https://teacher-svb.github.io/p5-play-OO-games/games/typingGame/
+- https://teacher-svb.github.io/p5-play-OO-games/games/snake/
+
 ## Project startup
 
  - go to https://github.com/T-INFORMATICA/p5-play-OO
